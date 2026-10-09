@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Mimados e Peludos Pet Shop & Day Care na Vila Olímpia, São Paulo. Creche, banho e tosa sem estresse e loja pet. Nota 5,0 no Google. Nada de gaiolas, só amor.">
+<meta name="theme-color" content="#1c3d8f">
+<title>Mimados e Peludos Pet Shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+/* Layout: arch-framed storefront hero, service tiles, photo mosaic, auto-scrolling reviews, hours + illustrated street map */
+:root{
+  --blue:#1c3d8f;      /* storefront sign */
+  --blue-dark:#10265c;
+  --sky:#d4e9f8;      /* shop wall */
+  --yellow:#ffc928;   /* outer wall */
+  --orange:#f58220;   /* trim */
+  --cream:#fffaf0;
+  --ink:#14213d;
+  --mute:#4b5878;
+  --display:'Bricolage Grotesque','Arial Black',system-ui,sans-serif;
+  --body:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--cream)}
+body{margin:0;background:var(--cream);color:var(--ink);font:400 17px/1.6 var(--body);overflow-x:hidden}
+a{color:inherit}
+img{max-width:100%;display:block}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1180px;margin-inline:auto;padding-inline:20px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;letter-spacing:-.02em;line-height:1.04}
+.eyebrow{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--orange)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:999px;background:var(--orange);color:#fff;font:700 1rem var(--body);text-decoration:none;border:0;cursor:pointer;transition:transform .25s cubic-bezier(.2,.7,.2,1),box-shadow .25s;box-shadow:0 8px 0 -2px #b85a08}
+.btn:hover{transform:translateY(-3px)}
+.btn:active{transform:translateY(3px);box-shadow:0 3px 0 -2px #b85a08}
+.btn.blue{background:var(--blue);box-shadow:0 8px 0 -2px var(--blue-dark)}
+.btn.line{background:transparent;color:var(--blue);box-shadow:none;border:2px solid var(--blue)}
+
+/* nav */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:rgba(255,250,240,.9);backdrop-filter:blur(10px);border-bottom:1px solid rgba(20,33,61,.08)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 1.25rem var(--display);color:var(--blue);letter-spacing:-.02em}
+.logo i{display:grid;place-items:center;width:36px;height:36px;border-radius:12px;background:var(--yellow);transform:rotate(-8deg)}
+.logo svg{width:22px;height:22px;fill:var(--blue)}
+nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-weight:500}
+nav ul a{text-decoration:none;color:var(--mute)}
+nav ul a:hover{color:var(--blue)}
+@media(max-width:760px){nav ul{display:none}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;padding-block:clamp(36px,6vw,80px) clamp(56px,8vw,110px)}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,5vw,70px);align-items:center}
+.hero h1{font-size:clamp(2.7rem,7.2vw,5.6rem);font-weight:800;color:var(--blue);margin:16px 0 22px}
+.hero h1 span{display:inline-block;animation:pop .8s cubic-bezier(.2,1.4,.4,1) both}
+.hero h1 span:nth-child(2){animation-delay:.1s}
+.hero h1 span:nth-child(3){animation-delay:.2s}
+.hero h1 em{font-style:normal;color:var(--orange)}
+.hero .lead{max-width:44ch;color:var(--mute);font-size:1.18rem;margin:0 0 30px;animation:rise .8s .3s both}
+.hero .cta{display:flex;flex-wrap:wrap;gap:16px;animation:rise .8s .42s both}
+.rating{display:inline-flex;align-items:center;gap:12px;margin-top:34px;padding:10px 18px 10px 12px;background:#fff;border-radius:999px;box-shadow:0 6px 24px -10px rgba(16,38,92,.35);animation:rise .8s .55s both;font-size:.95rem}
+.rating b{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--yellow);font:800 1rem var(--display);color:var(--blue-dark)}
+.rating .st{color:var(--orange);letter-spacing:.1em}
+.frame{position:relative;justify-self:center;width:min(100%,430px);animation:rise 1s .2s both}
+.frame::before{content:"";position:absolute;inset:6% -8% -5% 10%;background:var(--yellow);border-radius:50% 50% 38px 38px/38% 38% 38px 38px;transform:rotate(5deg)}
+.frame .photo{position:relative;aspect-ratio:4/5;border-radius:999px 999px 28px 28px;overflow:hidden;border:6px solid var(--blue);background:var(--sky);box-shadow:0 30px 50px -28px rgba(16,38,92,.6)}
+.frame img{width:100%;height:100%;object-fit:cover}
+.sticker{position:absolute;right:-10px;bottom:34px;z-index:2;background:var(--blue);color:#fff;padding:12px 18px;border-radius:18px;font:800 1.05rem/1.1 var(--display);transform:rotate(6deg);box-shadow:0 10px 0 -4px var(--blue-dark)}
+.sticker small{display:block;font:500 .75rem var(--body);opacity:.85;margin-top:2px}
+.paw{position:absolute;fill:var(--blue);opacity:.1;animation:float 7s ease-in-out infinite}
+.paw.p1{width:90px;left:3%;top:8%}
+.paw.p2{width:60px;right:46%;bottom:6%;animation-delay:-2s;fill:var(--orange);opacity:.18}
+.paw.p3{width:70px;right:3%;top:5%;animation-delay:-4s}
+@keyframes float{50%{transform:translateY(-18px) rotate(10deg)}}
+@keyframes pop{from{transform:translateY(40px) scale(.9);opacity:.01}to{transform:none;opacity:1}}
+@keyframes rise{from{transform:translateY(28px);opacity:.01}to{transform:none;opacity:1}}
+@media(max-width:860px){.hero .wrap{grid-template-columns:1fr}.frame{order:-1;width:min(100%,340px)}.sticker{right:0}}
+
+/* marquee */
+.marq{background:var(--blue);color:#fff;overflow:hidden;padding-block:16px;transform:rotate(-1deg);margin-inline:-10px}
+.marq div{display:flex;gap:40px;width:max-content;animation:slide 32s linear infinite;font:800 1.5rem var(--display)}
+.marq span::after{content:"🐾";margin-left:40px;font-size:1.1rem}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+section{padding-block:clamp(64px,9vw,120px)}
+.head{display:grid;gap:14px;max-width:640px;margin-bottom:clamp(32px,5vw,56px)}
+.head h2{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;color:var(--blue)}
+.head p{margin:0;color:var(--mute)}
+
+/* services */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px}
+.tile{position:relative;padding:30px 28px 34px;border-radius:30px;background:var(--c,var(--sky));overflow:hidden;transition:transform .35s cubic-bezier(.2,1.2,.4,1)}
+.tile:hover{transform:translateY(-8px) rotate(-1deg)}
+.tile svg{width:54px;height:54px;stroke:var(--blue);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;margin-bottom:22px}
+.tile h3{font-size:1.6rem;color:var(--blue-dark);margin-bottom:10px}
+.tile p{margin:0;color:#2a3558}
+.tile:nth-child(2){--c:#ffe27a}
+.tile:nth-child(3){--c:#ffd0a6}
+.tile:nth-child(4){--c:#e6dcff}
+.tile:nth-child(5){--c:#c9f0d9}
+
+/* gallery */
+.mosaic{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:clamp(150px,19vw,230px);gap:14px}
+.mosaic figure{margin:0;position:relative;border-radius:26px;overflow:hidden;background:var(--sky);grid-column:span 2}
+.mosaic figure:nth-child(1){grid-column:span 3;grid-row:span 2}
+.mosaic figure:nth-child(2){grid-column:span 3}
+.mosaic figure:nth-child(3){grid-column:span 3}
+.mosaic figure:nth-child(6){grid-column:span 4}
+.mosaic img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.mosaic figure:hover img{transform:scale(1.07)}
+.mosaic figcaption{position:absolute;left:12px;bottom:12px;background:rgba(255,250,240,.95);color:var(--blue-dark);padding:6px 14px;border-radius:999px;font-weight:700;font-size:.85rem}
+@media(max-width:720px){
+  .mosaic{grid-template-columns:1fr 1fr;grid-auto-rows:210px}
+  .mosaic figure,.mosaic figure:nth-child(n){grid-column:span 1;grid-row:auto}
+  .mosaic figure:nth-child(1){grid-column:span 2;grid-row:span 1}
+}
+
+/* promise */
+.promise{background:var(--blue);color:#fff;position:relative;overflow:hidden}
+.promise .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,6vw,80px);align-items:center}
+.promise h2{font-size:clamp(2.4rem,6vw,4.6rem);font-weight:800}
+.promise h2 em{font-style:normal;color:var(--yellow)}
+.promise ul{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.promise li{display:flex;gap:16px;align-items:flex-start;padding:20px 22px;border-radius:22px;background:rgba(255,255,255,.1)}
+.promise li b{display:block;font:700 1.15rem var(--display);margin-bottom:2px}
+.promise li span{opacity:.85;font-size:.97rem}
+.promise li i{flex:none;width:42px;height:42px;border-radius:14px;background:var(--yellow);display:grid;place-items:center}
+.promise li svg{width:22px;height:22px;fill:var(--blue-dark)}
+@media(max-width:820px){.promise .wrap{grid-template-columns:1fr}}
+
+/* reviews */
+.reviews{background:var(--sky);overflow:hidden}
+.score{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:36px}
+.score strong{font:800 clamp(3.4rem,9vw,5.5rem)/1 var(--display);color:var(--blue)}
+.score .st{color:var(--orange);font-size:1.5rem;letter-spacing:.12em}
+.score small{display:block;color:var(--mute);font-size:.95rem}
+.rail{display:flex;gap:18px;width:max-content;animation:slide 90s linear infinite;padding-block:6px}
+.rail:hover{animation-play-state:paused}
+.rv{width:min(340px,80vw);flex:none;background:#fff;border-radius:26px;padding:24px 24px 22px;display:flex;flex-direction:column;justify-content:space-between;gap:18px;box-shadow:0 12px 30px -20px rgba(16,38,92,.5)}
+.rv:nth-child(odd){transform:rotate(-.8deg)}
+.rv:nth-child(even){transform:rotate(.8deg)}
+.rv p{margin:0;font-size:1rem}
+.rv .st{color:var(--orange);letter-spacing:.1em;font-size:.95rem}
+.rv footer{font-weight:700;color:var(--blue-dark);font-size:.9rem}
+.rv footer small{display:block;font-weight:400;color:var(--mute)}
+
+/* visit */
+.visit .box{display:grid;grid-template-columns:1fr 1fr;border-radius:34px;overflow:hidden;background:#fff;box-shadow:0 30px 60px -40px rgba(16,38,92,.6)}
+.visit .info{padding:clamp(26px,4vw,52px);display:grid;gap:24px;align-content:start;min-width:0}
+.visit h2{font-size:clamp(2rem,4.5vw,3rem);font-weight:800;color:var(--blue)}
+.row small{display:block;color:var(--orange);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;margin-bottom:4px}
+.row a{font-weight:700;color:var(--blue)}
+.state{display:inline-flex;align-items:center;gap:10px;padding:7px 15px;border-radius:999px;background:var(--sky);font-weight:700;font-size:.9rem;width:max-content;max-width:100%}
+.state .dot{width:10px;height:10px;border-radius:50%;background:#8a93a8}
+.state.open{background:#d9f5e3;color:#0d6b34}
+.state.open .dot{background:#1fb15a;animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(31,177,90,0)}100%{box-shadow:0 0 0 0 rgba(31,177,90,0)}}
+.hours{list-style:none;margin:10px 0 0;padding:0;display:grid;gap:4px}
+.hours li{display:flex;justify-content:space-between;gap:12px;padding:6px 12px;border-radius:10px;color:var(--mute)}
+.hours li.today{background:#fff1c9;color:var(--ink);font-weight:700}
+.mapart{position:relative;display:block;min-height:380px;background:#eaf3fb;overflow:hidden;text-decoration:none}
+.mapart svg{position:absolute;inset:0;width:100%;height:100%;display:block;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.mapart:hover svg{transform:scale(1.04)}
+.mapart svg text{font-family:var(--body);font-weight:700}
+.mapart .ring{transform-box:fill-box;transform-origin:center;animation:ring 2.6s infinite}
+.mapart .ring.r2{animation-delay:1.3s}
+@keyframes ring{from{transform:scale(1);opacity:.9}to{transform:scale(4.4);opacity:0}}
+.mapart .open{position:absolute;left:16px;bottom:16px;background:var(--blue);color:#fff;padding:10px 18px;border-radius:999px;font-weight:700;font-size:.9rem}
+.mapnote{position:absolute;right:12px;bottom:12px;font-size:.7rem;color:var(--mute);background:rgba(255,255,255,.8);padding:2px 8px;border-radius:8px}
+@media(max-width:820px){.visit .box{grid-template-columns:1fr}}
+
+footer.site{background:var(--blue-dark);color:#cfd8f0;padding-block:36px;font-size:.92rem}
+footer.site .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer.site a{color:#fff}
+
+/* floating whatsapp */
+.wa{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:10px;padding:14px 20px;border-radius:999px;background:#1fb15a;color:#fff;font-weight:700;text-decoration:none;box-shadow:0 14px 30px -10px rgba(10,80,40,.6);transition:transform .25s}
+.wa:hover{transform:translateY(-3px) scale(1.03)}
+.wa svg{width:22px;height:22px;fill:#fff}
+@media(max-width:520px){.wa span{display:none}.wa{padding:16px}}
+
+.reveal{transform:translateY(30px);transition:transform .8s cubic-bezier(.2,.9,.3,1.1)}
+.reveal.in{transform:none}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{transform:none}
+  html{scroll-behavior:auto}
+  .rail{flex-wrap:wrap;width:auto}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#topo"><i><svg viewBox="0 0 24 24"><use href="#pawicon"/></svg></i>Mimados e Peludos</a>
+    <ul>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#espaco">O espaço</a></li>
+      <li><a href="#avaliacoes">Avaliações</a></li>
+      <li><a href="#visita">Visite</a></li>
+    </ul>
+    <a class="btn" href="https://wa.me/5511989144994" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+</nav>
+
+<header class="hero" id="topo">
+  <svg class="paw p1" viewBox="0 0 24 24"><use href="#pawicon"/></svg>
+  <svg class="paw p2" viewBox="0 0 24 24"><use href="#pawicon"/></svg>
+  <svg class="paw p3" viewBox="0 0 24 24"><use href="#pawicon"/></svg>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Pet shop e day care · Vila Olímpia, São Paulo</span>
+      <h1><span>Nada de</span> <span><em>gaiolas.</em></span> <span>Só amor.</span></h1>
+      <p class="lead">Creche, banho e tosa sem estresse e uma loja pet cheia de mimos, na Rua Casa do Ator. Seu peludo é tratado pelo nome.</p>
+      <div class="cta">
+        <a class="btn" href="https://wa.me/5511989144994" target="_blank" rel="noopener">Falar no WhatsApp</a>
+        <a class="btn line" href="#servicos">Ver serviços</a>
+      </div>
+      <div class="rating" aria-label="Nota 5,0 de 5 no Google, 50 avaliações"><b>5,0</b><span><span class="st" aria-hidden="true">★★★★★</span><br>50 avaliações no Google</span></div>
+    </div>
+    <div class="frame">
+      <div class="photo"><img src="images/fachada.jpg" alt="Fachada do Mimados e Peludos Pet Shop & Day Care, com placa azul, muro amarelo e bandeirinhas do Brasil"></div>
+      <div class="sticker">Day Care<small>e banho &amp; tosa</small></div>
+    </div>
+  </div>
+</header>
+
+<div class="marq" aria-hidden="true"><div id="marq"></div></div>
+
+<section id="servicos">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Serviços</span>
+      <h2>Tudo o que o seu pet precisa em um lugar só.</h2>
+      <p>Fale com a gente no WhatsApp para combinar horário e conhecer os pacotes.</p>
+    </div>
+    <div class="tiles">
+      <article class="tile reveal">
+        <svg viewBox="0 0 48 48"><path d="M8 38V22l16-12 16 12v16"/><path d="M18 38V28a6 6 0 0112 0v10"/></svg>
+        <h3>Day care</h3>
+        <p>Creche com socialização e carinho, sem gaiolas. Os tutores recebem vídeos do pet brincando.</p>
+      </article>
+      <article class="tile reveal">
+        <svg viewBox="0 0 48 48"><path d="M24 6c6 8 12 14 12 22a12 12 0 01-24 0c0-8 6-14 12-22z"/><path d="M18 30a6 6 0 006 6"/></svg>
+        <h3>Banho &amp; tosa</h3>
+        <p>Banho e tosa sem estresse, com tosa higiênica e pacotes de banho com desconto.</p>
+      </article>
+      <article class="tile reveal">
+        <svg viewBox="0 0 48 48"><path d="M10 18h28l-3 22H13z"/><path d="M17 18a7 7 0 0114 0"/></svg>
+        <h3>Loja pet</h3>
+        <p>Rações, petiscos naturais, brinquedos, caminhas e acessórios para o seu bichinho.</p>
+      </article>
+      <article class="tile reveal">
+        <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="8"/><path d="M24 6v6M24 36v6M6 24h6M36 24h6M11 11l4 4M33 33l4 4M37 11l-4 4M15 33l-4 4"/></svg>
+        <h3>Cromoterapia</h3>
+        <p>Sala com luzes coloridas para deixar o momento do pet mais tranquilo.</p>
+      </article>
+      <article class="tile reveal">
+        <svg viewBox="0 0 48 48"><rect x="9" y="22" width="30" height="16" rx="6"/><path d="M13 22v-4a4 4 0 014-4h14a4 4 0 014 4v4"/></svg>
+        <h3>Sala de espera</h3>
+        <p>Espaço para o tutor aguardar com conforto enquanto o pet é atendido.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="espaco" style="padding-top:0">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">O espaço</span>
+      <h2>Um cantinho limpo, organizado e cheio de cor.</h2>
+    </div>
+    <div class="mosaic">
+      <figure class="reveal"><img src="images/creche.jpg" alt="Cães brincando na área do day care, com paredes amarelas" loading="lazy"><figcaption>Day care</figcaption></figure>
+      <figure class="reveal"><img src="images/banho.jpg" alt="Sala de banho e tosa com secadores e banheiras" loading="lazy"><figcaption>Banho &amp; tosa</figcaption></figure>
+      <figure class="reveal"><img src="images/loja.jpg" alt="Loja pet com caminhas, brinquedos e coleiras" loading="lazy"><figcaption>Loja</figcaption></figure>
+      <figure class="reveal"><img src="images/pet.jpg" alt="Cachorrinha branca com laço rosa sobre a mesa de tosa" loading="lazy"><figcaption>Saiu cheirosa</figcaption></figure>
+      <figure class="reveal"><img src="images/cromoterapia.jpg" alt="Sala de cromoterapia com luz roxa e caminhas" loading="lazy"><figcaption>Cromoterapia</figcaption></figure>
+      <figure class="reveal"><img src="images/brinquedos.jpg" alt="Parede da loja com brinquedos, coleiras e acessórios" loading="lazy"><figcaption>Brinquedos e acessórios</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="promise">
+  <div class="wrap">
+    <h2 class="reveal">Cuidado e carinho para o seu pet. <em>Nada de gaiolas</em>, só amor.</h2>
+    <ul class="reveal">
+      <li><i><svg viewBox="0 0 24 24"><path d="M12 21s-8-5.3-8-11a4.5 4.5 0 018-2.8A4.5 4.5 0 0120 10c0 5.7-8 11-8 11z"/></svg></i><div><b>Atendimento personalizado</b><span>Cada bichinho recebe um tratamento único, de acordo com o jeitinho dele.</span></div></li>
+      <li><i><svg viewBox="0 0 24 24"><path d="M4 6h12a2 2 0 012 2v1l4-2v10l-4-2v1a2 2 0 01-2 2H4z"/></svg></i><div><b>Vídeos do seu peludo</b><span>Clientes contam que recebem vídeos do pet interagindo com os amigos.</span></div></li>
+      <li><i><svg viewBox="0 0 24 24"><path d="M12 2l2.8 6.3 6.8.6-5.1 4.5 1.5 6.7L12 16.7 6 20.1l1.5-6.7L2.4 8.9l6.8-.6z"/></svg></i><div><b>Nota 5,0 no Google</b><span>50 avaliações de tutores que voltam sempre.</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<section class="reviews" id="avaliacoes">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Avaliações</span>
+      <h2>Quem leva o peludo, volta e indica.</h2>
+    </div>
+    <div class="score reveal">
+      <strong>5,0</strong>
+      <div><span class="st" aria-hidden="true">★★★★★</span><small>50 avaliações no Google</small></div>
+    </div>
+  </div>
+  <div class="rail" id="rail">
+    <article class="rv"><span class="st" aria-hidden="true">★★★★★</span><p>Já passei por 3 creches até encontrar a Mimados e Peludos, e nenhuma me passou a confiança que eles me passam. É nítido que eles têm muito amor pelo que fazem.</p><footer>Beatriz Batista<small>Google · Local Guide</small></footer></article>
+    <article class="rv"><span class="st" aria-hidden="true">★★★★★</span><p>Atendimento, carinho, cuidado e muita paciência com meus babies. Eu e meus peludos só temos a agradecer a paciência e a dedicação de todos ali. Indico e confio sem medo.</p><footer>Maria Mikaelle Azevedo Abreu<small>Google</small></footer></article>
+    <article class="rv"><span class="st" aria-hidden="true">★★★★★</span><p>Melhor pet da região. Atendimento acolhedor, sempre gentis toda vez que preciso dos serviços. Preço honesto e justo.</p><footer>Thais Mercadante<small>Google</small></footer></article>
+    <article class="rv"><span class="st" aria-hidden="true">★★★★★</span><p>Excelente atendimento! A equipe é muito atenciosa e realmente cuida dos pets com carinho. Ambiente organizado e seguro, dá pra ver que gostam do que fazem.</p><footer>Juan Dias<small>Google</small></footer></article>
+    <article class="rv"><span class="st" aria-hidden="true">★★★★★</span><p>Fui muito bem atendido quando levei minha Golden para banho &amp; tosa. O pelo da Pudim é bem complicado e não é qualquer lugar que consegue deixá-lo sedoso. Fiquei muito feliz!</p><footer>Leonardo Sesso<small>Google</small></footer></article>
+    <article class="rv"><span class="st" aria-hidden="true">★★★★★</span><p>Local muito limpo e organizado, tenho confiança de deixar o pet nesse lugar porque sei que serão tratados com carinho.</p><footer>Ricardo Santoro<small>Google</small></footer></article>
+    <article class="rv"><span class="st" aria-hidden="true">★★★★★</span><p>Minha cachorrinha foi tratada com muito cuidado e amor. Os pacotes promocionais para banho têm preços super competitivos para a região e ainda tem brinde.</p><footer>Andrea Carina<small>Google</small></footer></article>
+    <article class="rv"><span class="st" aria-hidden="true">★★★★★</span><p>Levo meus pets neste pet shop e não poderia estar mais satisfeita! Meus pets sempre voltam felizes e bem cuidados.</p><footer>Karol Souza<small>Google</small></footer></article>
+    <article class="rv"><span class="st" aria-hidden="true">★★★★★</span><p>O cuidado da equipe com os pets, com certeza, é o diferencial! Indico demais.</p><footer>Regis Oliveira<small>Google</small></footer></article>
+  </div>
+</section>
+
+<section class="visit" id="visita">
+  <div class="wrap">
+    <div class="box reveal">
+      <div class="info">
+        <div>
+          <span class="eyebrow">Visite</span>
+          <h2>Venha conhecer a casa.</h2>
+        </div>
+        <div class="row">
+          <small>Endereço</small>
+          <span>R. Casa do Ator, 794<br>Vila Olímpia, São Paulo - SP<br>CEP 04546-003</span>
+        </div>
+        <div class="row">
+          <small>WhatsApp e telefone</small>
+          <a href="https://wa.me/5511989144994" target="_blank" rel="noopener">(11) 98914-4994</a>
+        </div>
+        <div class="row">
+          <small>Horários</small>
+          <span class="state" id="state"><span class="dot"></span><span id="stateText">Seg a sex, 9h às 18h</span></span>
+          <ul class="hours" id="hours">
+            <li data-d="1"><span>Segunda</span><span>9h – 18h</span></li>
+            <li data-d="2"><span>Terça</span><span>9h – 18h</span></li>
+            <li data-d="3"><span>Quarta</span><span>9h – 18h</span></li>
+            <li data-d="4"><span>Quinta</span><span>9h – 18h</span></li>
+            <li data-d="5"><span>Sexta</span><span>9h – 18h</span></li>
+            <li data-d="6"><span>Sábado</span><span>9h – 17h</span></li>
+            <li data-d="0"><span>Domingo</span><span>Fechado</span></li>
+          </ul>
+        </div>
+        <div><a class="btn blue" href="https://www.google.com/maps/place/Mimados+e+Peludos+Pet+Shop+%26+Day+Care/@-23.5978095,-46.6809654,17z/data=!4m6!3m5!1s0x94ce573d4e039fab:0xc95b13043432fc83!8m2!3d-23.5978095!4d-46.6809654!16s%2Fg%2F11wn5vwtv9" target="_blank" rel="noopener">Como chegar</a></div>
+      </div>
+      <a class="mapart" href="https://www.google.com/maps/place/Mimados+e+Peludos+Pet+Shop+%26+Day+Care/@-23.5978095,-46.6809654,17z/data=!4m6!3m5!1s0x94ce573d4e039fab:0xc95b13043432fc83!8m2!3d-23.5978095!4d-46.6809654!16s%2Fg%2F11wn5vwtv9" target="_blank" rel="noopener" aria-label="Abrir o Mimados e Peludos no Google Maps">
+        <svg id="cityMap" viewBox="0 0 800 560" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Mapa ilustrado com a localização do Mimados e Peludos na Rua Casa do Ator, Vila Olímpia"></svg>
+        <span class="open">Abrir no Google Maps ↗</span>
+        <span class="mapnote">Mapa ilustrativo</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span id="yr"></span> Mimados e Peludos Pet Shop &amp; Day Care · R. Casa do Ator, 794 · Vila Olímpia</span>
+    <a href="https://instagram.com/mimados_e_peludos" target="_blank" rel="noopener">@mimados_e_peludos</a>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/5511989144994" target="_blank" rel="noopener" aria-label="Chamar no WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2zm5.2 13.9c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.7 1.2 1.5 1.9 1 .9 1.8 1.200 2.100 1.300.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.900.9c.3.1.5.2.5.3.1.2.1.700-.1 1.300z"/></svg>
+  <span>WhatsApp</span>
+</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="pawicon"><ellipse cx="6" cy="10" rx="2.3" ry="3"/><ellipse cx="10" cy="5.5" rx="2.3" ry="3"/><ellipse cx="14.5" cy="5.5" rx="2.3" ry="3"/><ellipse cx="18.3" cy="10" rx="2.3" ry="3"/><path d="M12 11c-3.200 0-6 3.400-6 6 0 2 1.700 3 3.200 3 1.100 0 1.900-.5 2.800-.5s1.700.5 2.800.5c1.500 0 3.200-1 3.200-3 0-2.600-2.800-6-6-6z"/></g>
+</defs></svg>
+
+<script>
+(function(){
+  var words=['Day care','Banho & tosa','Loja pet','Cromoterapia','Sem gaiolas','Só amor'];
+  var h=words.map(function(w){return '<span>'+w+'</span>'}).join('');
+  document.getElementById('marq').innerHTML=h+h;
+  document.getElementById('yr').textContent=new Date().getFullYear();
+
+  // reviews: duplicate for a seamless loop
+  var rail=document.getElementById('rail');
+  if(rail && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    rail.innerHTML+=rail.innerHTML;
+    rail.querySelectorAll('.rv').forEach(function(el,i,a){if(i>=a.length/2)el.setAttribute('aria-hidden','true')});
+  }
+
+  // open / closed in São Paulo time
+  try{
+    var p=new Intl.DateTimeFormat('en-US',{timeZone:'America/Sao_Paulo',weekday:'short',hour:'numeric',minute:'numeric',hour12:false}).formatToParts(new Date()),o={};
+    p.forEach(function(x){o[x.type]=x.value});
+    var d={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[o.weekday], t=(+o.hour%24)+(+o.minute)/60;
+    var close=d===6?17:18, open=d!==0&&t>=9&&t<close;
+    var st=document.getElementById('state'), tx=document.getElementById('stateText');
+    st.classList.toggle('open',open);
+    tx.textContent=open?'Aberto agora · fecha às '+close+'h':'Fechado agora · seg a sex 9h às 18h, sáb 9h às 17h';
+    var li=document.querySelector('#hours li[data-d="'+d+'"]'); if(li) li.classList.add('today');
+  }catch(e){}
+
+  // reveal on scroll (transform only; content stays visible)
+  var els=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+    els.forEach(function(el,i){el.style.transitionDelay=(i%4)*70+'ms';io.observe(el)});
+  } else els.forEach(function(el){el.classList.add('in')});
+
+  // illustrated street map around R. Casa do Ator, 794 (schematic)
+  var svg=document.getElementById('cityMap');
+  if(svg){
+    var cx=400, cy=280, sy=118, sx=170, o2='';
+    o2+='<rect width="800" height="560" fill="#eaf3fb"/>';
+    o2+='<g transform="rotate(-26 '+cx+' '+cy+')">';
+    for(var k=-5;k<5;k++)for(var j=-5;j<5;j++){
+      var x=cx+j*sx+10,y=cy+k*sy+10,w=sx-20,h=sy-20;
+      var park=(k===1&&j===0);
+      o2+='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+h+'" rx="12" fill="'+(park?'#bfe8c9':((k*5+j*3)%4===0?'#fff1c9':'#ffffff'))+'"/>';
+    }
+    for(k=-5;k<=5;k++){var yy=cy+k*sy;o2+='<line x1="-800" x2="1600" y1="'+yy+'" y2="'+yy+'" stroke="'+(k===0?'#f58220':'#c7d6ea')+'" stroke-width="'+(k===0?12:5)+'" stroke-linecap="round"/>'}
+    for(j=-5;j<=5;j++){var xx=cx+j*sx;o2+='<line y1="-500" y2="1100" x1="'+xx+'" x2="'+xx+'" stroke="'+(j===1?'#ffc928':'#c7d6ea')+'" stroke-width="'+(j===1?10:5)+'" stroke-linecap="round"/>'}
+    o2+='<text x="'+(cx-300)+'" y="'+(cy-14)+'" fill="#b85a08" font-size="16" letter-spacing="1.5">R. CASA DO ATOR</text>';
+    o2+='<text x="'+(cx+80)+'" y="'+(cy-14)+'" fill="#b85a08" font-size="16" letter-spacing="1.5">R. CASA DO ATOR</text>';
+    o2+='<text x="'+(cx-300)+'" y="'+(cy-sy-14)+'" fill="#6c7da0" font-size="13" letter-spacing="1">RUA FLANDREIRAS</text>';
+    o2+='<text x="'+(cx+80)+'" y="'+(cy-sy-14)+'" fill="#6c7da0" font-size="13" letter-spacing="1">RUA FLANDREIRAS</text>';
+    o2+='<text transform="translate('+(cx+sx-9)+' '+(cy+2*sy)+') rotate(-90)" fill="#a07a00" font-size="13" letter-spacing="1">R. QUATÁ</text>';
+    o2+='<text transform="translate('+(cx+sx-9)+' '+(cy-2*sy+40)+') rotate(-90)" fill="#a07a00" font-size="13" letter-spacing="1">R. QUATÁ</text>';
+    o2+='<text x="'+(cx+16)+'" y="'+(cy+sy+60)+'" fill="#2c7a46" font-size="13">Praça São Lourenço</text>';
+    o2+='</g>';
+    o2+='<circle class="ring" cx="'+cx+'" cy="'+cy+'" r="9" fill="none" stroke="#1c3d8f" stroke-width="2.5"/>';
+    o2+='<circle class="ring r2" cx="'+cx+'" cy="'+cy+'" r="9" fill="none" stroke="#1c3d8f" stroke-width="2.5"/>';
+    o2+='<path d="M'+cx+' '+cy+' c-17 -23 -23 -31 -23 -46 a23 23 0 1 1 46 0 c0 15 -6 23 -23 46z" fill="#1c3d8f"/>';
+    o2+='<g transform="translate('+(cx-11)+' '+(cy-57)+') scale(.92)" fill="#ffc928"><use href="#pawicon"/></g>';
+    o2+='<g transform="translate('+(cx+34)+' '+(cy-70)+')"><rect width="168" height="40" rx="12" fill="#14213d"/><text x="14" y="17" font-size="13" fill="#fff">Mimados e Peludos</text><text x="14" y="32" font-size="11" fill="#ffc928" font-weight="500">R. Casa do Ator, 794</text></g>';
+    svg.innerHTML=o2;
+  }
+})();
+</script>
+</body>
+</html>
